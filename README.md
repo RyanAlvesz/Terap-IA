@@ -1,1 +1,0 @@
-# Terap-IA

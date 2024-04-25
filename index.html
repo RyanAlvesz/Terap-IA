@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Libre+Caslon+Display&family=Liu+Jian+Mao+Cao&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./src/css/output.css">
+    <link rel="shortcut icon" href="./src/images/favicon.png" type="image/x-icon">
+    <script src="./src/js/login.js" defer></script>
+    <title>Login</title>
+</head>
+<body class="h-screen font-standard grid grid-cols-[6fr_4fr] bg-light-gray">
+    <div class="bg-cover bg-center bg-no-repeat bg-[url(../images/login-bg.jpeg)] flex items-end p-12">
+        <img src="./src/images/ill-need-terap-ia.png" alt="Você precisa de terapia" class="w-1/2 h-auto">
+    </div>
+    <main class="grid grid-rows-[15vh_1fr_20vh] py-6 items-center">
+        <div class="flex flex-col items-center justify-center gap-1">
+            <h3 class="text-yellow-gray font-bold text-xl">FILE NAME</h3>
+            <div class="border-2 border-yellow-gray py-1 w-1/3 flex items-center justify-center">
+                <span class="font-handwritten text-gray text-2xl tracking-widest">The Terap-IA</span>
+            </div>
+        </div>
+        <form class="w-[70%] place-self-center flex flex-col items-center justify-center gap-8">
+            <img src="./src/images/thetorturedpoetsdepartment.png" alt="The Tortured Poets Department" class="w-full">
+            <fieldset class="flex flex-col items-center justify-center w-full gap-8">
+                <div class="w-full flex flex-col gap-2">
+                    <label for="user" class="text-xl text-yellow-gray font-bold">User</label>
+                    <input type="text" id="user" class="w-full outline-none border border-yellow-gray bg-yellow-gray/10 h-14 p-2 text-gray">
+                </div>
+                <div class="w-full">
+                    <label for="password" class="text-xl text-yellow-gray font-bold">Password</label>
+                    <input type="password" id="password" class="w-full outline-none border border-yellow-gray bg-yellow-gray/10 h-14 p-2 text-gray">
+                </div>
+                <button type="button" class="bg-gradient-to-r from-yellow-gray to-gray-gradient py-2 px-8 rounded-lg text-white text-2xl font-bold">
+                    LOGIN
+                </button>
+            </fieldset>
+        </form>
+        <div class="flex flex-col items-center gap-6">
+            <div class="flex flex-col items-center justify-center gap-1 w-full">
+                <h3 class="text-yellow-gray font-bold text-xl">FROM THE DESK OF</h3>
+                <div class="border-2 border-yellow-gray py-1 w-1/3 flex items-center justify-center">
+                    <span class="font-typewriter text-gray text-2xl tracking-[0.20rem]">RYAN ALVES</span>
+                </div>
+            </div>
+            <img src="./src/images/ttpd.png" alt="TTPD" class="h-12">
+        </div>
+    </main>
+</body>
+</html>

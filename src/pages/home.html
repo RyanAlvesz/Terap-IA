@@ -7,26 +7,31 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Libre+Caslon+Display&family=Liu+Jian+Mao+Cao&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/output.css">
+    <link rel="stylesheet" href="../css/scrollbar.css">
     <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <script src="../js/home.js" defer></script>
     <title>Home</title>
 </head>
-<body class="h-screen font-standard bg-fixed bg-cover bg-center bg-[url('../images/home-bg.jpeg')] relative grid grid-rows-[1fr_20vh]">
-    <div class="absolute inset-0 bg-gradient-to-b from-dark-gray via-dark-gray-gradient to-dark-gray opacity-80 -z-10"></div>
+<body class="h-screen font-standard bg-fixed bg-cover bg-center bg-[url('../images/home-bg.jpeg')] relative grid grid-rows-[1fr_15vh] max-md:bg-[url('../images/home-mobile-bg.jpeg')]">
+    <div class="fixed inset-0 bg-gradient-to-b from-dark-gray via-dark-gray-gradient to-dark-gray opacity-80 -z-10 max-md:via-dark-gray-gradient/80"></div>
     <main class="flex flex-col items-center">
-        <div class="h-full flex flex-col gap-4 justify-center items-center translate-y-[10vh] 2xl:gap-8 hidden">
-            <img src="../images/favicon.png" alt="TTPD" class="h-18 2xl:h-44">
-            <h1 class="text-white text-3xl font-bold 2xl:text-5xl">How can I help you?</h1>
+        <div id="welcome-message" class="h-full flex flex-col duration-700 ease-linear gap-4 justify-center items-center translate-y-[10vh] 2xl:gap-8">
+            <img src="../images/favicon.png" alt="TTPD" class="h-18 2xl:h-32 max-md:h-16">
+            <h1 class="text-white text-3xl font-bold 2xl:text-4xl max-md:text-2xl">How can I help you?</h1>
         </div>
-        <section class="">
-            <div class="">
-                <h2 class="">Result</h2>
-                <h2 class="">Resultado</h2>
+        <section id="search-container" class="min-h-full w-full pt-20 pb-8 hidden flex-col max-md:pt-14 max-sm:pt-8 max-sm:pb-4">
+            <div class="flex w-full text-center text-white text-3xl font-bold mb-8">
+                <h2 class="w-1/2 max-md:w-full">Result</h2>
+                <h2 class="w-1/2 max-md:hidden">Resultado</h2>
             </div>
         </section>
     </main>
-    <footer class="flex items-center justify-center">
-        <input type="text" class="sticky bottom-0 w-4/5 px-4 h-2/6 rounded-lg shadow-lg bg-light-gray text-2xl text-dark-gray placeholder:text-2xl placeholder:text-dark-gray outline-none 2xl:text-4xl 2xl:placeholder:text-4xl" placeholder="Open your heart..." id="search">
+    <footer id="search-bar-container" class="flex items-center justify-between sticky bottom-0 px-12 ease-linear duration-150 max-md:px-16 max-md:gap-4 max-sm:px-4">
+        <div class="w-14 max-md:hidden"></div>
+        <input id="search-bar" type="text" class="w-4/5 px-4 py-3 flex items-center justify-center rounded-lg shadow-lg bg-light-gray text-2xl text-dark-gray placeholder:text-2xl placeholder:text-dark-gray outline-none max-md:w-full max-sm:py-2 max-sm:placeholder:text-xl max-sm:text-xl" placeholder="Open your heart..." id="search">
+        <button id="scroll-top" class="w-14 h-14 flex items-center justify-center bg-light-gray duration-150 ease-linear rounded-full hover:opacity-70 max-md:shrink-0 max-sm:hidden">
+            <span class="text-3xl leading-none font-bold text-dark-gray font-standard -rotate-90"> > </span>
+        </button>
     </footer>
 </body>
 </html>

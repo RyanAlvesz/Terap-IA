@@ -158,16 +158,10 @@ const setAsnwer = (messages) => {
 
 const translate = async(text) => {
 
-    let translatedResponse
     const url = `https://api.mymemory.translated.net/get?q=${text}&langpair=pt-br|en`
     const response = await fetch(url)
     const data = await response.json()
-    data.matches.forEach((translations) => {
-        if(translations.id == 0){
-            translatedResponse = translations.translation
-        }
-    })
-    return translatedResponse
+    return data.responseData.translatedText
 
 }
 

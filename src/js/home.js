@@ -52,6 +52,9 @@ const addAsnwerSection = () => {
 
     searchContainer.classList.remove('hidden')
     searchContainer.classList.add('flex')
+    setTimeout(() => {
+        searchContainer.classList.remove('opacity-0')
+    }, 200)
 
 }
 
@@ -111,31 +114,6 @@ const createMessage = (info, loading) => {
 
 }
 
-let messages = [
-
-    {
-        user: username,
-        message: 'What is the meaning of art?',
-        icon: '../images/icon.jpeg'
-    },
-    {
-        user: 'TerapIA',
-        message: 'A smirk creeps onto this poet’s face Because it’s the worst men that I write best And so I enter into evidence My tarnished coat of arms My muses, acquired like bruises My talismans and charms The tick, tick, tick of love bombs My veins of pitch black ink All’s fair in love and poetry Sincerely, The Chairman of The Tortured Poets Departmen',
-        icon: '../images/favicon.png'
-    },
-    {
-        user: username,
-        message: 'Qual o significado de arte?',
-        icon: '../images/icon.jpeg'
-    },
-    {
-        user: 'TerapIA',
-        message: 'Um sorriso se insinua no rosto desta poeta Porque é sobre os piores homens que eu escrevo melhor. E então eu entro com evidências Meu brasão manchado Minhas musas, adquiridas como hematomas Meus talismãs e encantos O tique, tique, tique de bombas de amor Minhas veias de tinta preta Vale tudo no amor e na poesia… Atenciosamente, a presidenta do Departamento dos Poetas Torturados',
-        icon: '../images/favicon.png'
-    }
-
-]   
-
 const createAnswerContainer = (messages) => {
 
     const container = document.createElement('div')
@@ -164,7 +142,7 @@ const createAnswerContainer = (messages) => {
 
 }
 
-const setAsnwer = () => {
+const setAsnwer = (messages) => {
 
     removeWelcomeMessage()
     
@@ -178,9 +156,48 @@ const setAsnwer = () => {
 
 }
 
-const search = () => {
+const tranlate = async(text) => {
+
+    const url = `https://api.mymemory.translated.net/get?q=${text}&langpair=en|pt-br`
+    const response = await fetch(url)
+    const data = await response.json()
+    return data.responseData.translatedText
+    
+}
+
+
+
+const search = async() => {
 
     let search = searchBar.value
+    const translatedQuestion = await tranlate(search)
+
+
+    setAsnwer(
+        [
+            {
+                user: username,
+                message: search,
+                icon: '../images/icon.jpeg'
+            },
+            {
+                user: 'TerapIA',
+                message: 'A smirk creeps onto this poet’s face Because it’s the worst men that I write best And so I enter into evidence My tarnished coat of arms My muses, acquired like bruises My talismans and charms The tick, tick, tick of love bombs My veins of pitch black ink All’s fair in love and poetry Sincerely, The Chairman of The Tortured Poets Departmen',
+                icon: '../images/favicon.png'
+            },
+            {
+                user: username,
+                message: translatedQuestion,
+                icon: '../images/icon.jpeg'
+            },
+            {
+                user: 'TerapIA',
+                message: 'Um sorriso se insinua no rosto desta poeta Porque é sobre os piores homens que eu escrevo melhor. E então eu entro com evidências Meu brasão manchado Minhas musas, adquiridas como hematomas Meus talismãs e encantos O tique, tique, tique de bombas de amor Minhas veias de tinta preta Vale tudo no amor e na poesia… Atenciosamente, a presidenta do Departamento dos Poetas Torturados',
+                icon: '../images/favicon.png'
+            }
+            
+        ]
+    )
 
 }
 
@@ -188,15 +205,15 @@ buttonScrollTop.addEventListener('click', scrollTop)
 searchBar.addEventListener('keypress', (e) => { if(e.key === 'Enter') {search()} })
 window.addEventListener('load', () => {
     setSearchBarBackground()
-    setAsnwer()
+    // setAsnwer()
 
-    setTimeout(() => {
-        setAsnwer()
-    }, 4000)
+    // setTimeout(() => {
+    //     setAsnwer()
+    // }, 4000)
     
-    setTimeout(() => {
-        setAsnwer()
-    }, 8000)
+    // setTimeout(() => {
+    //     setAsnwer()
+    // }, 8000)
 
 })
 

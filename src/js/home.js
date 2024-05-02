@@ -156,64 +156,108 @@ const setAsnwer = (messages) => {
 
 }
 
-const tranlate = async(text) => {
+const translate = async(text) => {
 
-    const url = `https://api.mymemory.translated.net/get?q=${text}&langpair=en|pt-br`
+    let translatedResponse
+    const url = `https://api.mymemory.translated.net/get?q=${text}&langpair=pt-br|en`
     const response = await fetch(url)
     const data = await response.json()
-    return data.responseData.translatedText
-    
+    data.matches.forEach((translations) => {
+        if(translations.id == 0){
+            translatedResponse = translations.translation
+        }
+    })
+    return translatedResponse
+
 }
 
+const getGeminiAnswer = async(question) => {
 
+    const keyGoogle = 'AIzaSyBZaybh57iVi23jcLvzuIrabNG4f3td60A'
+    const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + keyGoogle
+
+    const questionTreatment = question + ' faça uma resposta bem resumida'
+
+    const requestData = {
+        contents: [
+            {
+                parts: [
+                    {
+                        text: `${questionTreatment}`
+                    }
+                ]
+            }
+        ]
+    }
+
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    }
+
+    await fetch(url, requestOptions)
+    .then(response => response.json())
+    .then(data => {
+        const responseTextIA = data.candidates[0].content.parts[0].text
+        setResponse(responseTextIA)
+    })
+
+}
+
+const setResponse = async(responseTextIA) => {
+
+    let search = searchBar.value
+    answerARRAY[0].message = search
+
+    answerARRAY[1].message = responseTextIA
+
+
+    const translatedQuestion = await translate(search)
+    console.log(translatedQuestion);
+    
+    answerARRAY[2].message = translatedQuestion
+    
+    const translatedResponse = await translate(responseTextIA)
+    answerARRAY[3].message = translatedResponse
+
+    setAsnwer(answerARRAY)
+
+}
+
+let answerARRAY = [
+    {
+        user: username,
+        icon: '../images/icon.jpeg'
+    },
+    {
+        user: 'TerapIA',
+        icon: '../images/favicon.png'
+    },
+    {
+        user: username,
+        icon: '../images/icon.jpeg'
+    },
+    {
+        user: 'TerapIA',
+        icon: '../images/favicon.png'
+    }
+    
+]
 
 const search = async() => {
 
     let search = searchBar.value
-    const translatedQuestion = await tranlate(search)
-
-
-    setAsnwer(
-        [
-            {
-                user: username,
-                message: search,
-                icon: '../images/icon.jpeg'
-            },
-            {
-                user: 'TerapIA',
-                message: 'A smirk creeps onto this poet’s face Because it’s the worst men that I write best And so I enter into evidence My tarnished coat of arms My muses, acquired like bruises My talismans and charms The tick, tick, tick of love bombs My veins of pitch black ink All’s fair in love and poetry Sincerely, The Chairman of The Tortured Poets Departmen',
-                icon: '../images/favicon.png'
-            },
-            {
-                user: username,
-                message: translatedQuestion,
-                icon: '../images/icon.jpeg'
-            },
-            {
-                user: 'TerapIA',
-                message: 'Um sorriso se insinua no rosto desta poeta Porque é sobre os piores homens que eu escrevo melhor. E então eu entro com evidências Meu brasão manchado Minhas musas, adquiridas como hematomas Meus talismãs e encantos O tique, tique, tique de bombas de amor Minhas veias de tinta preta Vale tudo no amor e na poesia… Atenciosamente, a presidenta do Departamento dos Poetas Torturados',
-                icon: '../images/favicon.png'
-            }
-            
-        ]
-    )
+    getGeminiAnswer(search)
 
 }
 
+
 buttonScrollTop.addEventListener('click', scrollTop)
 searchBar.addEventListener('keypress', (e) => { if(e.key === 'Enter') {search()} })
-window.addEventListener('load', () => {
+window.addEventListener('load', async() => {
     setSearchBarBackground()
-    // setAsnwer()
-
-    // setTimeout(() => {
-    //     setAsnwer()
-    // }, 4000)
-    
-    // setTimeout(() => {
-    //     setAsnwer()
-    // }, 8000)
-
 })
 

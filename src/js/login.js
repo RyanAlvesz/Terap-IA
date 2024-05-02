@@ -5,22 +5,16 @@ const password = document.getElementById('password')
 const loginButton = document.getElementById('login-button')
 const loadText = document.getElementById('load-animation')
 
-let users = [
+let users
 
-    {
-        name: 'Ryan',
-        password: '1234'
-    },
-    {
-        name: 'Gabriela',
-        password: '4321'
-    },
-    {
-        name: 'Vitor',
-        password: 'seinao'
-    }
+const getUsers = async() => {
 
-]
+    const url = 'https://back-login.vercel.app/usuarios'
+    const response = await fetch(url)
+    const data = await response.json()
+    return data
+
+}
 
 const loginValidation = () => {
 
@@ -29,10 +23,10 @@ const loginValidation = () => {
     users.forEach((user)=>{
         
         if(
-            username.value.toUpperCase() == user.name.toUpperCase() && 
-            password.value.toUpperCase() == user.password.toUpperCase()
+            username.value.toUpperCase() == user.nome.toUpperCase() && 
+            password.value.toUpperCase() == user.senha.toUpperCase()
         ){
-            localStorage.setItem('user', user.name)
+            localStorage.setItem('user', user.nome)
             validation = true
         }
 
@@ -111,4 +105,7 @@ loginButton.addEventListener('click', login)
 username.addEventListener('keypress', (e) => { if(e.key === 'Enter') {login()} })
 username.addEventListener('keypress', (e) => { if(e.key === 'Enter') {login()} })
 password.addEventListener('keypress', (e) => { if(e.key === 'Enter') {login()} })
-window.addEventListener('load', enableAnimation)
+window.addEventListener('load', async() => {
+    enableAnimation()
+    users = await getUsers()    
+})
